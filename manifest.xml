@@ -8,7 +8,7 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Remove Attachments"/>
   <Description DefaultValue="Internal Outlook Add-in to delete attachments from emails."/>
-  <IconUrl DefaultValue="https://yourdomain.com/assets/icon.png"/>
+  <IconUrl DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/8bbc6e3d-b6f6-4ebf-94ac-5627a3dfc1be.png"/>
   <Hosts>
     <Host Name="Mailbox"/>
   </Hosts>
