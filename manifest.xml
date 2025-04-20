@@ -3,10 +3,10 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:type="MailApp">
   <Id>c4f03e38-1fa5-4d0f-b7a0-9093fa5e7d91</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.0.0.2</Version>
   <ProviderName>RAW IT</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Remove Attachments"/>
+  <DisplayName DefaultValue="Clear Attachments"/>
   <Description DefaultValue="Internal Outlook Add-in to delete attachments from emails."/>
   <IconUrl DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/8bbc6e3d-b6f6-4ebf-94ac-5627a3dfc1be.png"/>
   <Hosts>
