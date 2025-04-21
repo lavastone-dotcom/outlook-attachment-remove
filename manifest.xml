@@ -8,8 +8,7 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Clear Attachments"/>
   <Description DefaultValue="Internal Outlook Add-in to delete attachments from emails."/>
-  <IconUrl DefaultValue="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAADXCAIAAAAGH1PiAACe0ElEQVR42n39eaAlV1Uvjq+1q845996eh3S6k053EjInZGIK8xCGoCBDAJFBBhFnFHF4+vj53lOfPhRUVBS/ToBMAZRRMIQpJCEMScjcnbk73Ul6nvvee+pU7fX7o2qv9Vm7TkTFpPveM1Tt2nutz/oMPJlUJCxETEJMREwkJEwkxCwi3P43kRAREwsJMTO1f0VCQsLMREQklF4iUvoDEWLq/p66n09vQ0SUfld/u/1n6d6MGN6IiNI/s7B0rykkxMT2y+17ir6HvnD7ouTeUKT73iySXr/7u+6qdK/CpP8aibj94CLdt2j/Cz8/M6VXJLHL234Y6X6g+/v227Vv3V19gYvT/jB135tIJP1oe5vSe+qNaP85dK8CPwOXQ0jaK9x9fElvaddf1wERcXtRBe5..." />
-  <Hosts>
+   <Hosts>
     <Host Name="Mailbox"/>
   </Hosts>
   <Requirements>
