@@ -5,7 +5,7 @@
     xsi:type="MailApp">
 
   <Id>c4f03e38-1fa5-4d0f-b7a0-9093fa5e7d91</Id>
-  <Version>1.0.0.6</Version>
+  <Version>1.0.0.7</Version>
   <ProviderName>RAW IT</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Clear Attachments"/>
@@ -35,17 +35,17 @@
 
   <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
 
-  <VersionOverrides Version="1.0" xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.0">
+  <VersionOverrides Version="1.1" xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1">
     <Requirements>
       <bt:Sets DefaultMinVersion="1.8" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0">
-        <bt:Set Name="Mailbox" />
+        <bt:Set Name="Mailbox"/>
       </bt:Sets>
     </Requirements>
 
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-          <FunctionFile Url="https://kind-river-0821b5103.6.azurestaticapps.net/function-file.html"/>
+          <FunctionFile resid="functionFileUrl"/>
 
           <ExtensionPoint xsi:type="MessageReadCommandSurface">
             <OfficeTab id="TabDefault">
@@ -93,7 +93,7 @@
         <bt:String id="buttonLabel" DefaultValue="Clear Attachments"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="buttonToolTip" DefaultValue="Click here to clear attachments from this email"/>
+        <bt:String id="buttonToolTip" DefaultValue="Click to clear attachments from the selected email."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
