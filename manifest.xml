@@ -22,10 +22,6 @@
     </Sets>
   </Requirements>
 
-  <ExtendedPermissions>
-    <ExtendedPermission>ReadWriteItem</ExtendedPermission>
-  </ExtendedPermissions>
-
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
@@ -39,11 +35,7 @@
 
   <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
 
-  <Action xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="ShowTaskpane">
-    <SourceLocation DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/taskpane.html"/>
-  </Action>
-
-  <VersionOverrides Version="1.0">
+  <VersionOverrides Version="1.0" xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.0">
     <Requirements>
       <bt:Sets DefaultMinVersion="1.8" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0">
         <bt:Set Name="Mailbox" />
