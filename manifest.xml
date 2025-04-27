@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:type="MailApp">
-  
+<OfficeApp 
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:type="MailApp">
+
   <Id>c4f03e38-1fa5-4d0f-b7a0-9093fa5e7d91</Id>
   <Version>1.0.0.5</Version>
   <ProviderName>RAW IT</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Clear Attachments"/>
   <Description DefaultValue="Internal Outlook Add-in to delete attachments from emails."/>
-  
   <IconUrl DefaultValue="https://appsforoffice.microsoft.com/fabric/icons/OfficeAddins.png"/>
-
-  <HighResolutionIconUrl DefaultValue="https://appsforoffice.microsoft.com/fabric/icons/OfficeAddins.png"/>
 
   <Hosts>
     <Host Name="Mailbox"/>
   </Hosts>
 
   <Requirements>
-    <Sets DefaultMinVersion="1.8">
+    <Sets DefaultMinVersion="1.5">
       <Set Name="Mailbox"/>
     </Sets>
   </Requirements>
@@ -30,18 +28,19 @@
         <SourceLocation DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/taskpane.html"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
-      <TabletSettings>
-        <SourceLocation DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/taskpane.html"/>
-        <RequestedHeight>250</RequestedHeight>
-      </TabletSettings>
-      <PhoneSettings>
-        <SourceLocation DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/taskpane.html"/>
-        <RequestedHeight>250</RequestedHeight>
-      </PhoneSettings>
     </Form>
   </FormSettings>
 
   <Permissions>ReadWriteItem</Permissions>
 
-  <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+  <Rule xsi:type="ItemHasAttachment" FormType="Read"/>
+
+  <WebApplicationInfo>
+    <Id>00000000-0000-0000-0000-000000000000</Id>
+    <Resource>api://kind-river-0821b5103.6.azurestaticapps.net</Resource>
+    <Scopes>
+      <Scope>Mail.ReadWrite</Scope>
+    </Scopes>
+  </WebApplicationInfo>
+
 </OfficeApp>
