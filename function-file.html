@@ -2,14 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Function File</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
 </head>
 <body>
   <script>
-    // Function file for Ribbon Button
-    Office.initialize = function (reason) {
-      console.log("Function file loaded.");
+    Office.initialize = () => {
+      console.log("Function File loaded.");
     };
   </script>
 </body>
