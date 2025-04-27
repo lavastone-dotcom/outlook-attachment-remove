@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp 
-  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:type="MailApp">
+<OfficeApp
+    xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:type="MailApp">
 
   <Id>c4f03e38-1fa5-4d0f-b7a0-9093fa5e7d91</Id>
-  <Version>1.0.0.5</Version>
+  <Version>1.0.0.6</Version>
   <ProviderName>RAW IT</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Clear Attachments"/>
@@ -17,10 +17,14 @@
   </Hosts>
 
   <Requirements>
-    <Sets DefaultMinVersion="1.5">
+    <Sets DefaultMinVersion="1.8">
       <Set Name="Mailbox"/>
     </Sets>
   </Requirements>
+
+  <ExtendedPermissions>
+    <ExtendedPermission>ReadWriteItem</ExtendedPermission>
+  </ExtendedPermissions>
 
   <FormSettings>
     <Form xsi:type="ItemRead">
@@ -33,14 +37,73 @@
 
   <Permissions>ReadWriteItem</Permissions>
 
-  <Rule xsi:type="ItemHasAttachment" FormType="Read"/>
+  <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
 
-  <WebApplicationInfo>
-    <Id>00000000-0000-0000-0000-000000000000</Id>
-    <Resource>api://kind-river-0821b5103.6.azurestaticapps.net</Resource>
-    <Scopes>
-      <Scope>Mail.ReadWrite</Scope>
-    </Scopes>
-  </WebApplicationInfo>
+  <Action xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="ShowTaskpane">
+    <SourceLocation DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/taskpane.html"/>
+  </Action>
+
+  <VersionOverrides Version="1.0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.8" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0">
+        <bt:Set Name="Mailbox" />
+      </bt:Sets>
+    </Requirements>
+
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <DesktopFormFactor>
+          <FunctionFile Url="https://kind-river-0821b5103.6.azurestaticapps.net/function-file.html"/>
+
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="msgReadGroup">
+                <Label resid="groupLabel"/>
+                <Icon>
+                  <bt:Image size="16" resid="icon16"/>
+                  <bt:Image size="32" resid="icon32"/>
+                  <bt:Image size="80" resid="icon80"/>
+                </Icon>
+                <Control xsi:type="Button" id="msgReadButton">
+                  <Label resid="buttonLabel"/>
+                  <Supertip>
+                    <Title resid="buttonLabel"/>
+                    <Description resid="buttonToolTip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="taskpaneUrl"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="icon16" DefaultValue="https://appsforoffice.microsoft.com/fabric/icons/OfficeAddins.png"/>
+        <bt:Image id="icon32" DefaultValue="https://appsforoffice.microsoft.com/fabric/icons/OfficeAddins.png"/>
+        <bt:Image id="icon80" DefaultValue="https://appsforoffice.microsoft.com/fabric/icons/OfficeAddins.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="taskpaneUrl" DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/taskpane.html"/>
+        <bt:Url id="functionFileUrl" DefaultValue="https://kind-river-0821b5103.6.azurestaticapps.net/function-file.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="groupLabel" DefaultValue="Clear Attachments"/>
+        <bt:String id="buttonLabel" DefaultValue="Clear Attachments"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="buttonToolTip" DefaultValue="Click here to clear attachments from this email"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
 
 </OfficeApp>
