@@ -3,25 +3,21 @@
     xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:type="MailApp">
-
   <Id>c4f03e38-1fa5-4d0f-b7a0-9093fa5e7d91</Id>
-  <Version>1.0.0.7</Version>
+  <Version>1.0.0.6</Version>
   <ProviderName>RAW IT</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Clear Attachments"/>
   <Description DefaultValue="Internal Outlook Add-in to delete attachments from emails."/>
   <IconUrl DefaultValue="https://appsforoffice.microsoft.com/fabric/icons/OfficeAddins.png"/>
-
   <Hosts>
     <Host Name="Mailbox"/>
   </Hosts>
-
   <Requirements>
     <Sets DefaultMinVersion="1.8">
       <Set Name="Mailbox"/>
     </Sets>
   </Requirements>
-
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
@@ -30,23 +26,18 @@
       </DesktopSettings>
     </Form>
   </FormSettings>
-
   <Permissions>ReadWriteItem</Permissions>
-
   <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
-
   <VersionOverrides Version="1.1" xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1">
     <Requirements>
       <bt:Sets DefaultMinVersion="1.8" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0">
-        <bt:Set Name="Mailbox"/>
+        <bt:Set Name="Mailbox" />
       </bt:Sets>
     </Requirements>
-
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
           <FunctionFile resid="functionFileUrl"/>
-
           <ExtensionPoint xsi:type="MessageReadCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="msgReadGroup">
@@ -77,7 +68,6 @@
         </DesktopFormFactor>
       </Host>
     </Hosts>
-
     <Resources>
       <bt:Images>
         <bt:Image id="icon16" DefaultValue="https://appsforoffice.microsoft.com/fabric/icons/OfficeAddins.png"/>
@@ -93,9 +83,8 @@
         <bt:String id="buttonLabel" DefaultValue="Clear Attachments"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="buttonToolTip" DefaultValue="Click to clear attachments from the selected email."/>
+        <bt:String id="buttonToolTip" DefaultValue="Click here to clear attachments from this email"/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
-
 </OfficeApp>
