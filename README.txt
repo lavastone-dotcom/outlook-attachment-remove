@@ -7,3 +7,4 @@ Requirements:
 - App Registration configured with API permissions (Mail.ReadWrite).
 - Static Web App should allow CORS (default is OK).
 - Silent SSO is triggered automatically using Office.js auth.
+- 
