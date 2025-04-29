@@ -1,27 +1,33 @@
-async function clearAttachments() {
-    const item = Office.context.mailbox.item;
+// Wait for Office.js to be ready
+Office.onReady(function(info) {
+    if (info.host === Office.HostType.Outlook) {
+        console.log("Office.js ready in Outlook!");
 
-    if (!item || typeof item.removeAttachmentAsync !== 'function') {
-        console.error("removeAttachmentAsync is not available in this context.");
-        alert("⚠️ Cannot remove attachments. Open a single email in full view.");
+        // Bind the button click to the function
+        document.getElementById("removeButton").onclick = function() {
+            removeAttachment();
+        };
+    }
+});
+
+// Function to remove an attachment
+function removeAttachment() {
+    var item = Office.context.mailbox.item;
+
+    // Make sure there are attachments
+    if (!item.attachments || item.attachments.length === 0) {
+        console.error("No attachments found on this email.");
         return;
     }
 
-    const attachmentIds = item.attachments.map(att => att.id);
+    // Example: Remove the first attachment
+    var attachmentId = item.attachments[0].id;
 
-    for (const id of attachmentIds) {
-        await new Promise((resolve, reject) => {
-            item.removeAttachmentAsync(id, (asyncResult) => {
-                if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-                    console.log(`Attachment ${id} removed successfully.`);
-                    resolve();
-                } else {
-                    console.error(`Failed to remove attachment ${id}`, asyncResult.error);
-                    reject(asyncResult.error);
-                }
-            });
-        });
-    }
-
-    alert("✅ Attachments removed!");
+    item.removeAttachmentAsync(attachmentId, function(asyncResult) {
+        if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+            console.log("Attachment removed successfully!");
+        } else {
+            console.error("Failed to remove attachment: " + asyncResult.error.message);
+        }
+    });
 }
