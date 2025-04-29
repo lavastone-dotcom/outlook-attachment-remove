@@ -1,5 +1,5 @@
 Office.onReady(() => {
-  console.log("Office.js is ready");
+  console.log("Office.js is ready ");
 });
 
 async function clearAttachments(event) {
