@@ -1,44 +1,44 @@
+// graph.js
+async function getGraphToken() {
+    return await Office.auth.getAccessToken({ allowSignInPrompt: true });
+}
+
 async function deleteAttachmentsByGraph(internetMessageId) {
-    const token = await getGraphToken(); // Assume this retrieves a valid Graph token
+    const token = await getGraphToken();
+    const encodedMessageId = encodeURIComponent(internetMessageId);
 
-    const encodedFilter = encodeURIComponent(`internetMessageId eq '${internetMessageId}'`);
-    const graphEndpoint = `https://graph.microsoft.com/v1.0/me/messages?$filter=${encodedFilter}`;
-
-    const response = await fetch(graphEndpoint, {
+    // 1. Find the message by InternetMessageId
+    const response = await fetch(`https://graph.microsoft.com/v1.0/me/messages?$filter=internetMessageId eq '${internetMessageId}'`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
-
     const data = await response.json();
-    if (!data.value || data.value.length === 0) {
+
+    if (data.value.length === 0) {
         console.error("Message not found in Graph.");
         return;
     }
 
     const messageId = data.value[0].id;
 
-    const attachmentsEndpoint = `https://graph.microsoft.com/v1.0/me/messages/${messageId}/attachments`;
-    const attachmentsResponse = await fetch(attachmentsEndpoint, {
+    // 2. Get attachments
+    const attachmentsResponse = await fetch(`https://graph.microsoft.com/v1.0/me/messages/${messageId}/attachments`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
-
     const attachmentsData = await attachmentsResponse.json();
+
+    // 3. Delete each attachment
     for (const attachment of attachmentsData.value) {
-        const deleteUrl = `https://graph.microsoft.com/v1.0/me/messages/${messageId}/attachments/${attachment.id}`;
-        const delResponse = await fetch(deleteUrl, {
+        await fetch(`https://graph.microsoft.com/v1.0/me/messages/${messageId}/attachments/${attachment.id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-
-        if (delResponse.status === 204) {
-            console.log(`Deleted attachment: ${attachment.name}`);
-        } else {
-            console.warn(`Failed to delete attachment: ${attachment.name}`);
-        }
     }
+
+    console.log("Attachments deleted successfully.");
 }
