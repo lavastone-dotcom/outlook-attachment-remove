@@ -25,5 +25,4 @@ jobs:
           ###### MOST IMPORTANT PART ######
           app_location: "/"        # Your index.html, taskpane.html are directly at the root
           api_location: ""         # No backend API
-          output_location: ""     # Output is same as input
           ###### END OF IMPORTANT PART ######
