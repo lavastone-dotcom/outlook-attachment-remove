@@ -1,33 +1,32 @@
-// Wait for Office.js to be ready
-Office.onReady(function(info) {
-    if (info.host === Office.HostType.Outlook) {
-        console.log("Office.js ready in Outlook!");
-
-        // Bind the button click to the function
-        document.getElementById("removeButton").onclick = function() {
-            removeAttachment();
-        };
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("removeBtn");
+    if (btn) {
+        btn.addEventListener("click", onRemoveClick);
     }
 });
 
-// Function to remove an attachment
-function removeAttachment() {
-    var item = Office.context.mailbox.item;
+async function onRemoveClick() {
+    try {
+        const item = Office.context.mailbox.item;
 
-    // Make sure there are attachments
-    if (!item.attachments || item.attachments.length === 0) {
-        console.error("No attachments found on this email.");
-        return;
+        // Get the internetMessageId of the selected email
+        item.internetMessageId.getAsync(async (result) => {
+            if (result.status === Office.AsyncResultStatus.Succeeded) {
+                const internetMessageId = result.value;
+                console.log("Message ID:", internetMessageId);
+
+                // Call the function from graph.js to delete attachments
+                await deleteAttachmentsByGraph(internetMessageId);
+
+                alert("Attachments removed successfully.");
+            } else {
+                console.error("Error retrieving internetMessageId:", result.error);
+                alert("Failed to retrieve message ID.");
+            }
+        });
+
+    } catch (err) {
+        console.error("Unexpected error:", err);
+        alert("An unexpected error occurred. Check console.");
     }
-
-    // Example: Remove the first attachment
-    var attachmentId = item.attachments[0].id;
-
-    item.removeAttachmentAsync(attachmentId, function(asyncResult) {
-        if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-            console.log("Attachment removed successfully!");
-        } else {
-            console.error("Failed to remove attachment: " + asyncResult.error.message);
-        }
-    });
 }
