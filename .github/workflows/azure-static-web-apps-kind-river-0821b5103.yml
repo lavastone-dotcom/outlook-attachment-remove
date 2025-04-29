@@ -3,7 +3,7 @@ name: Azure Static Web Apps CI/CD
 on:
   push:
     branches:
-      - main
+      - main  # Replace if your branch is different (like 'master' or another name)
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
@@ -15,14 +15,15 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v2
-      - name: Build and Deploy
+      - name: Build and Deploy Static Web App
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Auto-generated token
           action: "upload"
-          app_location: "/"
-          api_location: ""
-          output_location: ""
-
+          ###### MOST IMPORTANT PART ######
+          app_location: "/"        # Your index.html, taskpane.html are directly at the root
+          api_location: ""         # No backend API
+          output_location: "/"     # Output is same as input
+          ###### END OF IMPORTANT PART ######
