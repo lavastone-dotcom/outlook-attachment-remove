@@ -1,21 +1,16 @@
-Office.onReady((info) => {
-    if (info.host === Office.HostType.Outlook) {
-        removeAttachments();
-    }
+
+Office.onReady(() => {
+  console.log("Office.js is ready.");
 });
 
-async function removeAttachments() {
-    try {
-        const item = Office.context.mailbox.item;
-        const internetMessageId = item.internetMessageId;
-
-        if (!internetMessageId) {
-            console.error("No InternetMessageId found.");
-            return;
-        }
-
-        await deleteAttachmentsByGraph(internetMessageId);
-    } catch (error) {
-        console.error("Error removing attachments:", error);
-    }
+function removeAttachments() {
+  Office.context.mailbox.item.attachments.forEach(att => {
+    Office.context.mailbox.item.removeAttachmentAsync(att.id, result => {
+      if (result.status === Office.AsyncResultStatus.Succeeded) {
+        console.log("Removed attachment: " + att.name);
+      } else {
+        console.error("Failed to remove attachment: " + result.error.message);
+      }
+    });
+  });
 }
