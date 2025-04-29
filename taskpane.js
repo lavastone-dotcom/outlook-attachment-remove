@@ -3,52 +3,28 @@ Office.onReady(() => {
 });
 
 async function clearAttachments() {
-  try {
-    const itemId = Office.context.mailbox.item.itemId;
-    const accessToken = await Office.auth.getAccessToken({ allowSignInPrompt: true });
+  const item = Office.context.mailbox.item;
 
-    console.log("Access token acquired.");
+  if (item.attachments.length === 0) {
+    console.log("No attachments found.");
+    return;
+  }
 
-    // Correct ID format handling
-    let restId = Office.context.mailbox.convertToRestId(itemId, Office.MailboxEnums.RestVersion.v2_0);
+  const attachmentIds = item.attachments.map(att => att.id);
 
-    let attachmentsResponse = await fetch(`https://graph.microsoft.com/v1.0/me/messages/${restId}/attachments`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json"
-      }
-    });
-
-    if (!attachmentsResponse.ok) {
-      throw new Error("Failed to fetch attachments.");
-    }
-
-    let attachmentsData = await attachmentsResponse.json();
-    const attachments = attachmentsData.value;
-
-    if (attachments.length === 0) {
-      console.log("No attachments found.");
-      return;
-    }
-
-    for (const attachment of attachments) {
-      let deleteResponse = await fetch(`https://graph.microsoft.com/v1.0/me/messages/${restId}/attachments/${attachment.id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${accessToken}`
+  for (const id of attachmentIds) {
+    await new Promise((resolve, reject) => {
+      Office.context.mailbox.item.removeAttachmentAsync(id, (result) => {
+        if (result.status === Office.AsyncResultStatus.Succeeded) {
+          console.log(`Attachment ${id} removed.`);
+          resolve();
+        } else {
+          console.error(`Failed to remove attachment ${id}`, result.error);
+          reject(result.error);
         }
       });
-
-      if (!deleteResponse.ok) {
-        console.error(`Failed to delete attachment ${attachment.id}`);
-      } else {
-        console.log(`Attachment ${attachment.id} deleted.`);
-      }
-    }
-
-    console.log("All attachments removed.");
-  } catch (error) {
-    console.error("Error removing attachments: ", error);
+    });
   }
+
+  console.log("All attachments removed.");
 }
